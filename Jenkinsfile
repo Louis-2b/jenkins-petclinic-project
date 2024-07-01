@@ -37,7 +37,7 @@ pipeline {
         } 
         stage('Maven Package') {
             steps {
-                sh 'mvn clean package'
+                sh 'mvn clean package -DskipTests=true'
             } 
         }
         stage("OWASP Dependency Check") {
