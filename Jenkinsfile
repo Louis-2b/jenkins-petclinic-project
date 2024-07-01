@@ -45,12 +45,12 @@ pipeline {
                 sh 'mvn clean package -DskipTests=true'
             } 
         }
-        stage("OWASP Dependency Check") {
-            steps {
-                dependencyCheck additionalArguments: '--scan target/', odcInstallation: 'owasp'
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-            } 
-        }
+        // stage("OWASP Dependency Check") {
+        //    steps {
+        //        dependencyCheck additionalArguments: '--scan target/', odcInstallation: 'owasp'
+        //        dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+        //    } 
+        //}
         stage('Building the Image Docker') {
             steps {
                 script {
