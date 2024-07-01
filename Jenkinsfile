@@ -39,7 +39,13 @@ pipeline {
             steps {
                 sh 'mvn clean package'
             } 
-        } 
+        }
+        stage("OWASP Dependency Check") {
+            steps {
+                dependencyCheck additionalArguments: '--scan ./ --format HTML ', odcInstallation: 'owasp'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            } 
+        }
     }
 }
 
