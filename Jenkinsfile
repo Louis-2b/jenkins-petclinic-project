@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout the project') {
             steps {
-                git branch: 'main', url: 'https://github.com/Louis-2b/jenkins-petclinic-project.git'
+                git branch: 'test', url: 'https://github.com/Louis-2b/jenkins-petclinic-project.git'
             }
         }
         stage('Build the package') {
