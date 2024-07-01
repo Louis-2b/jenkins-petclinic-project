@@ -10,14 +10,23 @@ pipeline {
                 git branch: 'test', url: 'https://github.com/Louis-2b/jenkins-petclinic-project.git'
             }
         }
-        stage('Build the Package') {
+        stage('Maven Compile') {
             steps {
-                sh 'mvn clean package'
+                sh 'mvn clean compile'
             } 
         } 
-        stage("Test Cases") {
+        stage("Maven Test") {
             steps {
-                sh "mvn test"
+                sh 'mvn test'
+            } 
+        } 
+        stage('Sonar Quality Check') {
+            steps {
+                script {
+                    withSonarQubeEnv(installationName: 'sonar-latest',credentialsId: 'jenkins-sonar-token') {
+                        sh 'mvn sonar:sonar'
+                    } 
+                } 
             } 
         } 
     }
