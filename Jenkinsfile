@@ -14,7 +14,12 @@ pipeline {
             steps {
                 sh 'mvn clean package'
             } 
-        }  
+        } 
+        stage("Test Cases") {
+            steps {
+                sh "mvn test"
+            } 
+        } 
     }
 }
 
