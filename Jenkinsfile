@@ -75,6 +75,13 @@ pipeline {
                 } 
             } 
         } 
+        stage("TRIVY") {
+            steps {
+                script {
+                    sh " trivy image ${repository}/${imagename}:${BUILD_NUMBER}"
+                } 
+            } 
+        } 
     }
 }
 
