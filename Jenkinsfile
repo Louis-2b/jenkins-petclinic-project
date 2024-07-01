@@ -4,6 +4,11 @@ pipeline {
         maven 'maven-3.8.6'
     }
 
+    environment {
+        repository = "192.168.222.200:8083"
+        imagename = "petclinicapp"
+    }
+
     stages {
         stage('Checkout the project') {
             steps {
@@ -46,6 +51,23 @@ pipeline {
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             } 
         }
+        stage('Building the Image Docker') {
+            steps {
+                script {
+                    sh "docker build -t ${repository}/${imagename}:${BUILD_NUMBER} ."
+                } 
+            } 
+        } 
+        stage('Uploading to Nexus') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'jenkins-nexus-token', passwordVariable: 'PSW', usernameVariable: 'USER')]) {
+                        sh "echo ${PSW} | docker login -u ${USER} --password-stdin ${repository}"
+                        sh "docker push ${repository}/${imagename}:${BUILD_NUMBER}"
+                    } 
+                } 
+            } 
+        } 
     }
 }
 
