@@ -15,16 +15,19 @@ pipeline {
                 git branch: 'test', url: 'https://github.com/Louis-2b/jenkins-petclinic-project.git'
             }
         }
+        
         stage('Maven Compile') {
             steps {
                 sh 'mvn clean compile'
             } 
         } 
+
         stage("Maven Test") {
             steps {
                 sh 'mvn test'
             } 
         } 
+
         stage('Sonar Quality Check') {
             steps {
                 script {
@@ -40,6 +43,7 @@ pipeline {
                 } 
             } 
         } 
+
         stage('Maven Package') {
             steps {
                 sh 'mvn clean package -DskipTests=true'
@@ -51,6 +55,7 @@ pipeline {
         //        dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
         //    } 
         //}
+
         stage('Building the Image Docker') {
             steps {
                 script {
@@ -58,6 +63,7 @@ pipeline {
                 } 
             } 
         } 
+
         stage('Uploading to Nexus') {
             steps {
                 script {
