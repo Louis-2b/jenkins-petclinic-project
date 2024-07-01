@@ -10,6 +10,9 @@ pipeline {
                 git branch: 'test', url: 'https://github.com/Louis-2b/jenkins-petclinic-project.git'
             }
         }
+        stage('Build the Package') {
+            sh 'mvn clean package'
+        } 
     }
 }
 
