@@ -15,7 +15,7 @@ pipeline {
                 git branch: 'test', url: 'https://github.com/Louis-2b/jenkins-petclinic-project.git'
             }
         }
-        
+
         stage('Maven Compile') {
             steps {
                 sh 'mvn clean compile'
@@ -49,6 +49,7 @@ pipeline {
                 sh 'mvn clean package -DskipTests=true'
             } 
         }
+        
         // stage("OWASP Dependency Check") {
         //    steps {
         //        dependencyCheck additionalArguments: '--scan target/', odcInstallation: 'owasp'
